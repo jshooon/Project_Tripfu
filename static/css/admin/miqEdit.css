@@ -1,0 +1,18 @@
+		th {width : 200px;}
+		td {border-left: 1px solid black;}
+		a.link_del { border:1px solid red; color:red; font-size: x-small;}
+		.c {text-align:center;}
+		#a, #b, #c {float: right; margin-right: 0.5em;}
+		.flex-shrink-0.p-3.bg-white {display: inline-block; float : left; }
+		.d {display: inline-block; padding : 16px; width : 1000px;}
+		.ih {width : fit-content; margin : 0 auto; margin-top: 0.5em; margin-bottom: 0.5em;}
+		#sbtn {width: 95px; margin-right: 0.5em;}
+		.dropdown {
+      		margin-right: 0.5em;
+     	 }
+     	 #iqc {margin-bottom: 0.5em;}
+     	 #iqctitle{margin-left: 0.5em; font-size: medium; font-weight: bolder;}
+     	 #cbtn {float: right; margin-bottom: 0.5em;}
+     	 #floatingTextarea2 {margin-bottom: 0.5em;}
+     	 #comments{margin-bottom: 1.5em;}
+     	 #cbtn{float: right; display: inline-block; margin-right: 0.5em; margin-bottom: 0.5em; margin-top: 0.5em;}

@@ -1,0 +1,134 @@
+// member
+CREATE TABLE mydb.member (
+  mnum INT NOT NULL AUTO_INCREMENT,
+  email VARCHAR(45) NOT NULL,
+  pwd VARCHAR(45) NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  birth VARCHAR(45) NOT NULL,
+  gender VARCHAR(45) NOT NULL,
+  phone VARCHAR(45) NOT NULL,
+  PRIMARY KEY (mnum),
+  UNIQUE INDEX phone_UNIQUE (phone ASC) VISIBLE);
+
+// inquiry
+CREATE TABLE mydb.new_table(
+  num INT NOT NULL AUTO_INCREMENT,
+  iqauthor VARCHAR(45) NOT NULL,
+  iqtitle VARCHAR(45) NOT NULL,
+  iqcontents VARCHAR(45) NOT NULL,
+  iqtype VARCHAR(45) NOT NULL,
+  iqdate DATE NOT NULL,
+  PRIMARY KEY (num));
+
+//iqfileinfo
+CREATE TABLE mydb.iqfileinfo (
+  fnum INT NOT NULL AUTO_INCREMENT,
+  iqnum INT NOT NULL,
+  fname VARCHAR(45) NOT NULL,
+  fsize VARCHAR(45) NOT NULL,
+  PRIMARY KEY (fnum),
+  INDEX FK_IQ_NUM_idx (iqnum ASC) VISIBLE,
+  CONSTRAINT FK_IQ_NUM
+    FOREIGN KEY (iqnum)
+    REFERENCES mydb.inquiry (num)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+//reservation
+CREATE TABLE mydb.reservation (
+  rnum INT NOT NULL AUTO_INCREMENT,
+  rpname VARCHAR(45) NOT NULL,
+  rtype VARCHAR(45) NOT NULL,
+  mname VARCHAR(45) NOT NULL,
+  sdate VARCHAR(45) NOT NULL,
+  edate VARCHAR(45) NOT NULL,
+  rdate VARCHAR(45) NOT NULL,
+  nump VARCHAR(45) NOT NULL,
+  rprice VARCHAR(45) NOT NULL,
+  rname VARCHAR(45) NOT NULL,
+  rphone VARCHAR(45) NOT NULL,
+  remail VARCHAR(45) NOT NULL,
+  anump VARCHAR(45) NULL,
+  PRIMARY KEY (rnum));
+
+//pproduct
+CREATE TABLE mydb.product (
+  pnum INT NOT NULL AUTO_INCREMENT,
+  pname VARCHAR(45) NOT NULL,
+  area VARCHAR(45) NOT NULL,
+  type VARCHAR(45) NOT NULL,
+  price INT NOT NULL,
+  sdate DATE NULL,
+  edate DATE NULL,
+  fname VARCHAR(45) NOT NULL,
+  ifname VARCHAR(45) NOT NULL,
+  pnump INT NULL,
+  ptitle VARCHAR(45) NOT NULL,
+  pcontents VARCHAR(100) NOT NULL,
+  PRIMARY KEY (pnum));
+
+INSERT INTO mydb.pproduct (pnum, pname, area, type, price, sdate, edate, fname, ifname, pnump, ptitle, pcontents) VALUES (1, '여수여행', '여수', '패키지', 130000, '2022-04-25', '2022-04-26', '여수여행.jpg', '여수여행.jpg', 20, '낭만가득 여수 밤바다~♪', '365개의 섬과 다양한 해양생물, 산과 바다가 조화롭게 이루고 있는 여수로 지금 떠나보세요!');
+INSERT INTO mydb.pproduct (pnum, pname, area, type, price, sdate, edate, fname, ifname, pnump, ptitle, pcontents) VALUES (2, '군산여행', '군산', '패키지', 140000, '2022-04-26', '2022-04-27', '군산여행.jpg', '군산여행.jpg', 30, '근대역사의 중심! 군산 속으로', '1930년대 우리나라 근대역사를 고스란히 간직한 군산은 곳곳에 일본식주택과 근대건축물을 볼 수 있습니다.');
+INSERT INTO mydb.pproduct (pnum, pname, area, type, price, sdate, edate, fname, ifname, pnump, ptitle, pcontents) VALUES (3, '통영여행', '통영', '패키지', 120000, '2022-04-27', '2022-04-28', '통영여행.jpg', '통영여행.jpg', 40, '한려수도의 절경 통영 관광', '보물 같은 섬 장사도 등 수려한 자연 경관이 가득한 통영은 소설가 박경리의 발자취가 깃들어 진 곳이기도 합니다. 먹거리 볼거리 가득한 통영으로 떠나보세요!');
+INSERT INTO mydb.pproduct (pnum, pname, area, type, price, sdate, edate, fname, ifname, pnump, ptitle, pcontents) VALUES (4, '정동진여행', '정동진', '패키지', 80000, '2022-04-29', '2022-04-29', '정동진여행.jpg', '정동진여행.jpg', 50, '드라마 촬영지로 ', 'd');
+INSERT INTO mydb.pproduct (pnum, pname, area, type, price, sdate, edate, fname, ifname, pnump, ptitle, pcontents) VALUES (5, '강릉여행', '강릉', '패키지', 110000, '2022-05-01', '2022-05-01', '강릉여행.jpg', '강릉여행.jpg', 30, 'd', 'd');
+
+// fproduct
+CREATE TABLE mydb.fproduct (
+  pnum INT NOT NULL AUTO_INCREMENT,
+  pname VARCHAR(45) NOT NULL,
+  area VARCHAR(45) NOT NULL,
+  type VARCHAR(45) NOT NULL,
+  price INT NOT NULL,
+  fname VARCHAR(45) NOT NULL,
+  ifname VARCHAR(45) NOT NULL,
+  ptitle VARCHAR(45) NOT NULL,
+  pcontents VARCHAR(45) NOT NULL,
+  PRIMARY KEY (pnum));
+
+
+INSERT INTO mydb.product (pnum, pname, area, type, price, fname, ifname, pnump, ptitle, pcontents) VALUES (1, '전주여행', '전주', '자유', 100000, '전주여행.jpg', '전주여행.jpg', '매력넘치는 전주 먹방', '한국을 대표하는 전통문화 도시관광 1번지 전주는 한옥, 한식, 한지 등 다양하게 체험이 가능한 여행지입니다.');
+INSERT INTO mydb.product (pnum, pname, area, type, price, fname, ifname, pnump, ptitle, pcontents) VALUES (2, '부산여행', '부산', '자유', 200000, '부산여행.jpg', '부산여행.jpg', '어서오이소! 부산가이소!', '화려하고 볼거리가 많은 부산에서는 구석구석 빼놓을 곳이 없는 우리나라 제2의 도시입니다. 먹거리와 볼거리 가득한 부산으로 떠나보세요!');
+INSERT INTO mydb.product (pnum, pname, area, type, price, fname, ifname, pnump, ptitle, pcontents) VALUES (3, '경주여행', '경주', '자유', 160000, '경주여행.jpg', '경주여행.jpg', '지붕 없는 박물관 경주 이야기', '경주는 발길이 닿는 곳이 어디든 문화 유적지를 만날수 있습니다. 밤이면 더 빛나는 안압지를 비롯하여 첨성대, 불국사 등 어느 하나 빼놓을 수 없는 관광명소 박물관 입니다.');
+INSERT INTO mydb.product (pnum, pname, area, type, price, fname, ifname, pnump, ptitle, pcontents) VALUES (4, '울릉도여행', '울릉도', '자유', 190000, '울릉도여행.jpg', '울릉도여행.jpg', '독도는 우리땅! 울릉도 여행', '수백만 년 전의 모습 그대로 간직하고 있는 울릉도는 숨은 비경이 가득 한 소중한 관광 명소입니다. 특히 자원의 보물 창고인 독도는 꼭 가봐야할 여행지 입니다.');
+INSERT INTO mydb.product (pnum, pname, area, type, price, fname, ifname, pnump, ptitle, pcontents) VALUES (5', '제주도여행', '제주도', '자유', 300000, '제주도여행.jpg', '제주도여행.jpg', '섬 전체가 하나의 관광자원! 제주도탐방', '천혜의 자연경관으로 손꼽히는 관광 명소가 가득한 제주도는 많은이들에게 사랑받는 여행지 입니다.');
+
+// comment
+CREATE TABLE mydb.comment (
+  num INT NOT NULL AUTO_INCREMENT,
+  miqnum INT NOT NULL,
+  name VARCHAR(45) NOT NULL,
+  type VARCHAR(45) NOT NULL,
+  title VARCHAR(45) NOT NULL,
+  contents VARCHAR(45) NOT NULL,
+  comment VARCHAR(45) NOT NULL,
+  date DATE NOT NULL,
+  PRIMARY KEY (num));
+
+// city
+CREATE TABLE mydb.city (
+  num INT NOT NULL AUTO_INCREMENT,
+  kname VARCHAR(45) NOT NULL,
+  ename VARCHAR(45) NOT NULL,
+  PRIMARY KEY (num));
+
+INSERT INTO mydb.city (num, kname, ename) VALUES (1, '서울특별시', 'Seoul');
+INSERT INTO mydb.city (num, kname, ename) VALUES (2, '세종특별자치시', 'Sejong');
+INSERT INTO mydb.city (num, kname, ename) VALUES (3, '인천광역시', 'Incheon');
+INSERT INTO mydb.city (num, kname, ename) VALUES (4, '대전광역시', 'Daejeon');
+INSERT INTO mydb.city (num, kname, ename) VALUES (5, '광주광역시', 'Gwangju');
+INSERT INTO mydb.city (num, kname, ename) VALUES (6, '대구광역시', 'Daegu');
+INSERT INTO mydb.city (num, kname, ename) VALUES (7, '울산광역시', 'Ulsan');
+INSERT INTO mydb.city (num, kname, ename) VALUES (8, '부산광역시', 'Busan');
+INSERT INTO mydb.city (num, kname, ename) VALUES (9, '경기도', 'Gyeonggi-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (10, '강원도', 'Gangwon-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (11, '충청북도', 'Chungcheongbuk-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (12, '충청남도', 'Chungcheongnam-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (13, '전라북도', 'Jeollabuk-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (14, '전라남도', 'Jeollanam-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (15, '경상북도', 'Gyeongsangbuk-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (16, '경상남도', 'Gyeongsangnam-do');
+INSERT INTO mydb.city (num, kname, ename) VALUES (17, '울릉도', 'Ulleungdo');
+INSERT INTO mydb.city (num, kname, ename) VALUES (18, '제주특별자치도', 'Jeju-do');
+
+

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tripfu.mapper.member.MemberMapper">
+	
+	<!-- 회원가입 회원정보 전달 후 추가.  --> 
+	<insert id="signup" 
+		parameterType="com.tripfu.vo.member.MemberVO">
+		INSERT INTO member
+		VALUES(null, #{email}, #{pwd}, #{name}, #{birth}, #{gender}, #{phone})
+	</insert>
+	
+	<!-- 회원탈퇴 회원번호 전달 후 탈퇴.  -->
+	<delete id="secession"
+		parameterType="Integer">
+		DELETE 
+		FROM member
+		WHERE mnum = #{mnum}
+	</delete>
+	
+	<!-- 로그인 하기 위한 회원정보 전달 비교 후 값 가져오기.  -->
+	<select id="login"
+		resultType="map"
+		parameterType="com.tripfu.vo.member.MemberVO">
+		SELECT *
+		FROM member
+		WHERE email = #{email} AND pwd = #{pwd}
+	</select>
+	
+	<!-- 이메일 중복체크 조회 비교 후 값 가져오기.  -->
+	<select id="eCheck"
+		resultType="String"
+		parameterType="String">
+		SELECT email, name
+		FROM member
+		WHERE email = #{email}
+	</select>
+	
+	<!-- 휴대폰 중복체크 조회 비교 후 값 가져오기  -->
+	<select id="pCheck"
+		resultType="String"
+		parameterType="String">
+		SELECT phone, name
+		FROM member
+		WHERE phone = #{phone}
+	</select>
+	
+	<!-- 회원정보 조회 후 회원정보 가져오기.  -->
+	<select id="memberInfo"
+		resultType="com.tripfu.vo.member.MemberVO"
+		parameterType="int">
+		SELECT *
+		FROM member
+		WHERE mnum = #{mnum}
+	</select>
+	
+	<!-- 회원정보 수정 후 DB등록.  -->
+	<update id = "memberEdit"
+		parameterType="com.tripfu.vo.member.MemberVO">
+		UPDATE member
+		SET phone = #{phone}
+		WHERE email = #{email}
+	</update>
+	
+	<!-- 날씨 정보 가져오기위한 영문 도시이름 가져오기 -->
+	<select id="getename"
+		resultType="String" 
+		parameterType="String">
+        SELECT ename 
+		FROM mydb.city 
+		WHERE kname LIKE CONCAT('%',#{wsearch},'%') 
+	</select>
+</mapper>

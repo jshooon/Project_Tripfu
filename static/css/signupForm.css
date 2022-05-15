@@ -1,0 +1,18 @@
+        	.title {
+        		text-align: center;
+        	}
+        	 #ebt {
+        	 	margin-top: 0.5em; 
+        	 }
+        	.col-lg-offset-2 { 
+        		width : 300px;
+        	}
+        	#ediv {
+        		display: in inline-block;
+        	}
+        	#okbtn {
+        		margin-top : 0.5em;}
+        	#sbtn {
+        		width: 95px; 
+        		margin-right: 0.5em;
+        	}

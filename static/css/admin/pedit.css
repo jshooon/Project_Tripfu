@@ -1,0 +1,15 @@
+        	#sbtn {float: right; margin-right: 0.5em;}
+        	.title {text-align: center;}
+         	#ebt {width : 130px;} 
+        	.col-lg-offset-2 {width : 300px;}
+        	#ediv {display: in inline-block;}
+        	#okbtn {margin-left : 200px; margin-top : 0.5em; }
+        	.form-group {display: in inline-block; width : 800px; margin : 0 auto; text-align: center;}
+        	.c {text-align: left; margin-left : 140px; margin-top: 0.5em;}
+        	.col-lg-8 {display: inline-block; text-align: center;}
+        	.flex-shrink-0.p-3.bg-white {display: inline-block; float : left; }
+        	#updateForm {display: inline-block; padding : 16px;}
+        	.col-lg-2.control-label{width :100px;}
+        	.dropdown {
+     	 		margin-right: 0.5em;
+      		}

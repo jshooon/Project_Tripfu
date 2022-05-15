@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tripfu.mapper.admin.AdminMapper">
+	
+<!-- 로그인 하기 위한 관리자정보 전달 비교 후 값 가져오기.  -->
+	<select id="login"
+		resultType="com.tripfu.vo.admin.AdminVO"
+		parameterType="com.tripfu.vo.admin.AdminVO">
+		SELECT *
+		FROM admin
+		WHERE id = #{id} AND pwd = #{pwd}
+	</select>
+	
+<!-- 패키지상품 등록 -->
+	<insert id="addPproduct"
+		parameterType="com.tripfu.vo.product.PProductVO">
+		INSERT INTO pproduct
+		VALUES(null, #{pname}, #{area}, #{type}, #{price}, #{sdate}, #{edate}, #{fname}, #{ifname}, #{pnump}, #{ptitle}, #{pcontents}, #{latitude}, #{longitude})
+	</insert>
+	
+<!-- 자유상품 등록 -->
+	<insert id="addFproduct"
+		parameterType="com.tripfu.vo.product.FProductVO">
+		INSERT INTO fproduct
+		VALUES(null, #{pname}, #{area}, #{type}, #{price}, #{fname}, #{ifname}, #{ptitle}, #{pcontents}, #{latitude}, #{longitude})
+	</insert>
+	
+<!-- 패키지 상품 업데이트할 정보 가져오기 -->
+	<select id="pedit"
+		resultType="com.tripfu.vo.product.PProductVO"
+		parameterType="Integer">
+		SELECT * 
+		FROM pproduct
+		WHERE pnum = #{pnum}
+		</select>
+		
+<!-- 패키지 상품 업데이트할 정보 가져오기 -->
+	<select id="fedit"
+		resultType="com.tripfu.vo.product.FProductVO"
+		parameterType="Integer">
+		SELECT * 
+		FROM fproduct
+		WHERE pnum = #{pnum}
+		</select>
+	
+<!-- 패키지상품 업데이트 -->
+	<update id="pupdate"
+		parameterType="com.tripfu.vo.product.PProductVO">
+		UPDATE pproduct
+		SET pname = #{pname}, area = #{area}, type = #{type}, price = #{price}, sdate = #{sdate}, edate = #{edate}, fname = #{fname}, ifname = #{ifname}, pnump = #{pnump}, ptitle = #{ptitle}, pcontents = #{pcontents}, latitude = #{latitude}, longitude = #{longitude}
+		WHERE pnum = #{pnum};
+	</update>
+	
+<!-- 자유상품 업데이트 -->
+	<update id="fupdate"
+		parameterType="com.tripfu.vo.product.FProductVO">
+		UPDATE fproduct
+		SET pname = #{pname}, area = #{area}, type = #{type}, price = #{price}, fname = #{fname}, ifname = #{fname}, ptitle = #{ptitle}, pcontents = #{pcontents}, latitude = #{latitude}, longitude = #{longitude}
+		WHERE pnum = #{pnum};
+	</update>
+	
+<!-- 패키지상품 삭제 -->
+	<delete id="pdelete"
+		parameterType="Integer">
+		DELETE 
+		FROM pproduct 
+		WHERE pnum = #{pnum}
+	</delete>
+	
+<!-- 자유상품 삭제 -->
+	<delete id="fdelete"
+		parameterType="Integer">
+		DELETE 
+		FROM fproduct 
+		WHERE pnum = #{pnum}
+	</delete>
+	
+<!-- 회원정보 가져오기 -->
+	<select id="getmlist"
+		resultType="com.tripfu.vo.member.MemberVO">
+		SELECT * 
+		FROM member
+	</select>
+	
+<!-- 회원정보 삭제하기 -->
+	<delete id="mdelete"
+		parameterType="Integer">
+		DELETE 
+		FROM member
+		WHERE mnum = #{mnum}
+	</delete>
+	
+<!-- 회원 예약정보 목록 불러오기 -->
+	<select id="getmrList"
+		resultType="com.tripfu.vo.reservation.ReservationVO">
+		SELECT *
+		FROM reservation r
+        LEFT OUTER JOIN member m
+        on r.mname = m.name
+		ORDER BY r.rnum DESC
+	</select>
+	
+<!-- 회원 문의내역 가져오기 -->
+ 	<select id="getmiqList"
+ 		resultType="com.tripfu.vo.inquiry.InquiryVO">
+		SELECT 
+		i.num,i.iqtitle,i.iqauthor, iqdate,
+        GROUP_CONCAT(iq.fnum SEPARATOR '|') fnums,
+        GROUP_CONCAT(iq.fname SEPARATOR '|') fnames,
+		GROUP_CONCAT(iq.fsize SEPARATOR '|') fsizes
+		FROM inquiry AS i LEFT OUTER JOIN iqfileinfo iq
+		ON i.num=iq.iqnum
+		GROUP BY i.num
+        ORDER BY i.num DESC
+ 	</select>
+ 	
+ <!-- 회원 문의내용 댓글달기 -->
+ 	<insert id="getComment"
+ 		parameterType="com.tripfu.vo.admin.CommentVO"
+ 		useGeneratedKeys="true" keyProperty="num">
+ 		INSERT INTO comment
+ 		VALUES(null, #{iqnum}, #{name}, #{type}, #{title}, #{contents}, #{comments}, NOW())
+ 	</insert>
+ 	
+ <!-- 회원 문의내용 수정 -->
+ 	<update id="cupdate"
+ 		parameterType="com.tripfu.vo.admin.CommentVO">
+ 		UPDATE mydb.comment
+		SET comments = #{comments}
+		WHERE num = #{num}
+		</update>
+ 	
+ <!-- 회원 문의답변 삭제 -->
+ 	<delete id="cDelete"
+ 		parameterType="Integer">
+ 		DELETE 
+ 		FROM comment
+ 		WHERE num = #{num}
+ 	</delete>
+ 
+</mapper>

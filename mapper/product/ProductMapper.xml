@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.tripfu.mapper.product.ProductMapper">
+	
+	<!-- 패키지 상품 상세정보 가져오기 -->
+	<select id="getpProductInfo"
+		resultType="map"
+		parameterType="Integer">
+		SELECT *
+		FROM pproduct
+		WHERE pnum = #{pnum}
+	</select>
+	
+	<!-- 자유 상품 상세정보 가져오기 -->
+	<select id="getfProductInfo"
+		resultType="map"
+		parameterType="Integer">
+		SELECT *
+		FROM fproduct
+		WHERE pnum = #{pnum}
+	</select>
+
+	<!-- 상품검색정보 가져오기 -->
+	<select id="getSearchInfo"
+		resultType="com.tripfu.vo.product.ProductVO" 
+		parameterType="String">
+		SELECT pnum, ifname, ptitle, type, pcontents 
+		FROM pproduct 
+		WHERE pcontents LIKE CONCAT('%',#{pname},'%')
+        UNION
+        SELECT pnum, ifname, ptitle, type, pcontents 
+		FROM fproduct 
+		WHERE pcontents LIKE CONCAT('%',#{pname},'%') 
+	</select>
+	
+	<!-- 패키지 상품검색정보 가져오기 -->
+	<select id="getpSearchInfo"
+		resultType="com.tripfu.vo.product.PProductVO" 
+		parameterType="String">
+		SELECT pnum, ifname, ptitle, type, pcontents 
+		FROM pproduct 
+		WHERE pname LIKE CONCAT('%',#{search},'%') OR
+			  ptitle LIKE CONCAT('%',#{search},'%') OR
+			  pcontents LIKE CONCAT('%',#{search},'%')
+		
+	</select>
+	
+	<!-- 자유 상품검색정보 가져오기 -->
+	<select id="getfSearchInfo"
+		resultType="com.tripfu.vo.product.FProductVO" 
+		parameterType="String">
+        SELECT pnum, ifname, ptitle, type, pcontents 
+		FROM fproduct 
+		WHERE pname LIKE CONCAT('%',#{search},'%') OR
+			  ptitle LIKE CONCAT('%',#{search},'%') OR
+			  pcontents LIKE CONCAT('%',#{search},'%')
+	</select>
+
+	<!-- 상품 인덱스 사진파일이름 가져오기 -->
+	<select id = "getList"
+		resultType="map">
+		SELECT pnum, ifname, ptitle, type, pcontents
+		FROM pproduct
+        UNION
+        SELECT pnum, ifname, ptitle, type, pcontents
+        FROM fproduct;
+	</select>
+	
+	<!-- 패키지 상품 인덱스 사진파일이름 가져오기 -->
+	<select id = "getPlist"
+		resultType="map">
+		SELECT *
+		FROM pproduct
+	</select>
+	
+	<!-- 자유 상품 인덱스 사진파일이름 가져오기 -->
+	<select id = "getFlist"
+		resultType="map">
+		SELECT *
+		FROM fproduct
+	</select>
+	
+	<!-- 패키지 상품 정보 가져오기 -->
+	<select id = "getPproducts"
+		resultType = "map">
+		SELECT pnum, fname, ifname, ptitle, type, pcontents
+		FROM pproduct
+	</select>
+	
+	<!-- 자유 상품 정보 가져오기 -->
+	<select id = "getFproducts"
+		resultType = "map">
+		SELECT pnum, ifname, ptitle, type, pcontents
+		FROM fproduct
+	</select>
+	
+	<!-- 찜 목록 패키지상품 정보 가져오기 -->
+	<select id="pcartList"
+		resultType="com.tripfu.vo.product.PProductVO">
+		SELECT pnum, pname, type, sdate, edate
+		FROM pproduct 
+		WHERE pnum IN
+		<foreach collection="pcart" item="p" open="(" close=")" separator=",">
+		 #{p}
+		</foreach>
+	</select>
+	
+	<!-- 찜 목록 자유상품 정보 가져오기 -->
+	<select id="fcartList"
+		resultType="com.tripfu.vo.product.FProductVO">
+		SELECT pnum, pname, type
+		FROM fproduct 
+		WHERE pnum IN
+		<foreach collection="fcart" item="f" open="(" close=")" separator=",">
+		 #{f}
+		</foreach>
+	</select>
+	
+</mapper>

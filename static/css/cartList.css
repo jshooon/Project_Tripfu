@@ -1,0 +1,5 @@
+		#sbtn {float: right; margin-right: 0.5em;}
+		.ih {width : fit-content; margin : 0 auto; margin-top: 0.5em; margin-bottom: 0.5em;}
+		.flex-shrink-0.p-3.bg-white {display: inline-block; float : left; }
+		.l {display: inline-block; padding : 16px; width : 1000px;}
+		th,td {text-align: center;}

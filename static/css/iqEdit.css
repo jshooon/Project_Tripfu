@@ -1,0 +1,11 @@
+		#cbtn {float: right; margin-bottom: 0.5em;}
+		#a {float: right; margin-right: 0.5em;}
+		.c {text-align:center;}
+		.h {font-size : large; text-align:center;}
+		th {width : 200px;}
+		td {border-left: 1px solid black;}
+		a.link_del { border:1px solid red; color:red; font-size: x-small;}
+		.flex-shrink-0.p-3.bg-white {display: inline-block; float : left; }
+		.e {display: inline-block; padding : 16px; width : 1000px;}
+		.ih {width : fit-content; margin : 0 auto; margin-top: 0.5em; margin-bottom: 0.5em;}
+		#sbtn {width: 95px; margin-right: 0.5em;}

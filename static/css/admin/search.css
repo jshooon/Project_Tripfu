@@ -1,0 +1,53 @@
+	#sbtn {width: 95px; margin-right: 0.5em;}
+      .carousel-inner{
+        height:400px; /* 이미지 높이 변경 */
+      }
+      .carousel-item.active{
+        height:100%;
+      }
+      .carousel-item{
+        height:100%;
+      }
+      .d-block {
+        display:block;
+        height: 100%;
+      }
+      .cardtitle{
+      	margin-left: 10px;
+      	margin-top: 10px;
+      	margin-bottom: 10px;
+      }
+      .col-lg-3.col-md-6 {
+      	margin-bottom: 30px;
+      }
+      .form-control.me-2{
+      	width : 380px;
+      }
+      .flex { 
+      	display: inline-flex; 
+      	flex-wrap: wrap; 
+      	width:100%; 
+      	margin-left: 50px;
+      }
+      .ptype {
+      	border : 1px solid red;
+      	font-size: small; 
+      	font-weight : 700;
+      	border-radius: 10px;
+      	color: red;
+      	padding : 2px;
+      	margin-bottom: 1em;;
+      	text-align: right;
+      }
+      .card-body {
+      	height: 250px;
+      }
+      .dropdown {
+      	margin-right: 0.5em;
+      }
+      #fbtn {
+      	margin-bottom: 0.5em;
+      }
+      #pbtn {
+      	margin-bottom: 0.5em;
+      }

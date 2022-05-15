@@ -1,0 +1,33 @@
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      #rv {float: right;}
+      #p.row.g-3{width : 100%;}
+      #pname {margin-left: 100px;}
+	  #type {margin-left: 100px;}
+	  #mname {margin-left: 100px;}
+	  #price {margin-left: 100px;}
+	  #psdate {margin-left: 100px;}
+	  #pedate {margin-left: 100px;}
+      #pnump {margin-top: 1em;}
+      #fnump {margin-top: 1em;}
+      .sedate >div{ margin-top: 1em;}
+      #rname.col-sm-6{display: inline-block;}
+      #pricelabel {font-weight: 600; font-size: medium;} 
+      #pprices {margin-left : 120px; font-weight: 600; font-size: x-large; color : red; }
+      #fprices {margin-left : 120px; font-weight: 600; font-size: x-large; color : red; }
+      .btn.btn-danger{margin : 0 auto; margin-top: 0.5em; width : 200px;}
+      .col-mb-3{margin-top: 1em;}
+      #img{text-align: center;}
+      #map{text-align: center; margin-right : 350px; margin-top: 1em;  display: inline-block; width: fit-content;}
+      #sbtn {width: 95px; margin-right: 0.5em;}

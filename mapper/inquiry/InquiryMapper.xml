@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+ <mapper namespace="com.tripfu.mapper.inquiry.InquiryMapper">
+ 	
+ 	<!-- 문의내용 저장 -->
+ 	<insert id="iqSave"
+ 		parameterType = "com.tripfu.vo.inquiry.InquiryVO"
+ 		useGeneratedKeys="true" keyProperty="num">
+ 		INSERT INTO inquiry
+ 		VALUES(null, #{iqauthor}, #{iqtitle}, #{iqcontents}, #{iqtype}, NOW())
+ 	</insert>
+ 	
+ 	<!-- 문의내용 첨부파일 저장 -->
+ 	<insert id ="iqFileInfo"
+ 		parameterType="map"
+ 		useGeneratedKeys="true" keyProperty="fnum">
+ 		INSERT INTO iqfileinfo
+ 		VALUES(null, #{iqnum}, #{fname}, #{fsize})
+ 	</insert>
+ 	 	
+ 	<!-- 문의리스트 가져오기 -->
+<!--  	<select id="list" -->
+<!--  		resultType="map"> -->
+<!--  		SELECT DISTINCT num -->
+<!--  		FROM inquiry i -->
+<!--  		LEFT OUTER JOIN iqfileinfo iq -->
+<!--  		ON i.num = iq.iqnum -->
+<!--  	</select> -->
+ 	
+ 	<!-- 문의리스트 가져오기 -->
+ 	<select id="list"
+ 		resultType="com.tripfu.vo.inquiry.InquiryVO"
+ 		parameterType="Integer">
+		SELECT 
+		i.num,i.iqtitle,i.iqauthor, iqdate,
+        GROUP_CONCAT(iq.fnum SEPARATOR '|') fnums,
+        GROUP_CONCAT(iq.fname SEPARATOR '|') fnames,
+		GROUP_CONCAT(iq.fsize SEPARATOR '|') fsizes
+		FROM inquiry AS i LEFT OUTER JOIN iqfileinfo iq
+		ON i.num=iq.iqnum
+		INNER JOIN member m
+		ON i.iqauthor = m.name
+        WHERE m.mnum = #{mnum}
+		GROUP BY i.num
+        ORDER BY i.num DESC
+ 	</select>
+ 	
+ 	<!-- 문의리스트 가져오기2 -->
+<!--  	<select id="iqList" -->
+<!--  		resultType="map" -->
+<!--  		parameterType="map"> -->
+<!-- 		SELECT *  -->
+<!-- 		FROM ( -->
+<!-- 		SELECT *, @ROWNUM:=@ROWNUM+1 RN  -->
+<!-- 		FROM inquiry i  -->
+<!-- 		INNER JOIN member m  -->
+<!-- 	    ON i.iqauthor = m.name CROSS JOIN -->
+<!-- 	    (SELECT @ROWNUM:=0)t -->
+<!-- 	    WHERE m.mnum = #{mnum} -->
+<!-- 		)t1 -->
+<!-- 		LEFT OUTER JOIN iqfileinfo iq  -->
+<!-- 		ON t1.num=iq.iqnum -->
+<!-- 		WHERE RN BETWEEN (#{pageNum}*3-2) AND (#{pageNum}*3) -->
+<!-- 		ORDER BY t1.num DESC -->
+<!-- 	</select> -->
+
+	<!-- 문의상세내용 가져오기 -->
+ 	<select id="iqDetail"
+ 		resultType="map"
+ 		parameterType="Integer">
+ 		SELECT *
+ 		FROM inquiry i
+ 		LEFT OUTER JOIN iqfileinfo iq
+ 		ON i.num = iq.iqnum
+ 		WHERE i.num = #{num}
+ 	</select>
+ 	
+ 	<!-- 문의 첨부파일 이름 가져오기 -->
+ 	<select id="getFilename" 
+	    parameterType="Integer" 
+	    resultType="String">
+	    SELECT fname 
+	    FROM iqfileinfo 
+	    WHERE fnum=#{num} 
+    </select>
+ 	
+ 	<!-- 문의 첨부파일 삭제 -->
+ 	<delete id = "deleteFileInfo"
+    	parameterType = "Integer">
+    	DELETE FROM iqfileinfo
+    	WHERE fnum = #{num}	
+    </delete>
+ 	
+ 	<!-- 문의내용 업데이트 -->
+ 	<delete id="iqDelete"
+    	parameterType="Integer">
+    	DELETE FROM inquiry i
+    	WHERE i.num = #{num}
+    </delete>
+ 	
+ 	<!-- 문의내용 삭제 -->
+ 	<update id="iqUpdate"
+ 		parameterType="com.tripfu.vo.inquiry.InquiryVO">
+ 		UPDATE inquiry
+    	SET iqtype = #{iqtype}, iqtitle = #{iqtitle}, iqcontents = #{iqcontents}
+    	WHERE num = #{num}
+    </update>
+    
+    <!-- 문의내역 건수 가져오기 -->
+    <select id="getInquiryCount"
+    	resultType="Integer"
+    	parameterType="Integer">
+    	SELECT COUNT(num) 
+		FROM mydb.inquiry i
+		LEFT OUTER JOIN member m
+		ON i.iqauthor = m.name
+		WHERE m.mnum = #{mnum};
+	</select>
+ 	
+ 	<!-- 답변 가져오기 -->
+ 	<select id="getComment"
+ 		resultType="com.tripfu.vo.admin.CommentVO"
+ 		parameterType="Integer">
+ 		SELECT
+ 		num, comments
+ 		FROM comment
+ 		WHERE iqnum = #{num}
+ 	</select>
+ </mapper>

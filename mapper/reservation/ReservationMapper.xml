@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tripfu.mapper.reservation.ReservationMapper">
+	
+	<!-- 예약정보 저장 -->
+	<insert id="rSave"
+		parameterType="com.tripfu.vo.reservation.ReservationVO"
+		useGeneratedKeys="true" keyProperty="rnum">
+		INSERT INTO reservation
+		VALUES (null, #{rpname}, #{rtype}, #{mname}, #{sdate}, #{edate}, NOW(), #{nump}, #{rprice}, #{rname}, #{rphone}, #{remail})
+	</insert>
+	
+	<!-- 예약정보리스트 가져오기 -->
+	<select id="reservationList"
+		resultType="map"
+		parameterType="Integer">
+        SELECT *
+		FROM reservation r
+        LEFT OUTER JOIN member m
+        on r.mname = m.name
+		WHERE m.mnum = #{mnum}
+		ORDER BY r.rnum DESC
+	</select>
+
+	<!-- 예약상세정보 가져오기 -->
+	<select id="rDetail"
+		resultType="com.tripfu.vo.reservation.ReservationVO"
+		parameterType="Integer">
+		SELECT *
+		FROM  reservation r
+		WHERE r.rnum = #{rnum}
+	</select>
+
+	<!-- 예약취소 -->
+	<delete id="rCancel"
+		parameterType="Integer">
+		DELETE
+		FROM reservation r
+		WHERE r.rnum = #{rnum}
+	</delete>
+	
+	<!-- 예약 가능인원 가져오기 -->
+	<select id="getaNump"
+		resultType="Integer"
+		parameterType="Integer">
+		SELECT IF(COUNT(r.nump) = 0, p.pnump, p.pnump-SUM(r.nump)) anump 
+		FROM reservation r 
+		RIGHT OUTER JOIN pproduct p 
+		ON r.rpname = p.pname 
+		WHERE p.pnum = #{pnum}
+	</select>
+	
+	<!-- 예약목록 건수 가져오기 -->
+	<select id="getReservationCount"
+		resultType="Integer"
+		parameterType="Integer">
+		SELECT COUNT(rnum)
+        FROM reservation r
+        LEFT OUTER JOIN member m
+        ON r.mname = m.name
+        WHERE m.mnum = #{mnum};
+    </select>
+</mapper>
