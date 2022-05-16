@@ -1,6 +1,7 @@
 # Project_Tripfu 개인프로젝트
 
 ## 여행 플랫폼 웹사이트 Tripfu
+OS : Windows 10
 Languages : Java, HTML, CSS, JS, jQuery, Bootstrap   
 Framework : Spring Framework   
 Database : MySQL   
