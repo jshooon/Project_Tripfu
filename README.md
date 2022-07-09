@@ -3,7 +3,7 @@
 ## 여행 플랫폼 웹사이트 Tripfu
 OS : Windows 10   
 Languages : Java, HTML, CSS, JS, jQuery, Bootstrap   
-Framework : Spring Framework   
+Framework : Spring boot Framework   
 Database : MySQL   
 Tools : Eclipse
 API : Kakaomap, OpenWeather
