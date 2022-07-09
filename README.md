@@ -5,7 +5,7 @@ OS : Windows 10
 Languages : Java, HTML, CSS, JS, jQuery, SQL   
 Framework : Spring boot Framework   
 Database : MySQL   
-Tools : Eclipse
+Tools : Eclipse   
 API : Kakaomap, OpenWeather
 ### 주요기능 및 보안사항.
 * 주요기능
